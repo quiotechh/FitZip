@@ -1,0 +1,62 @@
+import mongoose, { Document, Schema } from "mongoose";
+
+export interface IOrder extends Document {
+  user: mongoose.Types.ObjectId;
+  product: mongoose.Types.ObjectId;
+  amount: number;
+  paymentStatus: "pending" | "completed" | "failed";
+  stripeSessionId: string;
+  downloadUrl: string;
+  isUpsell: boolean;
+  upsellProduct: mongoose.Types.ObjectId | null;
+  createdAt: Date;
+}
+
+const OrderSchema = new Schema<IOrder>(
+  {
+    user: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: [true, "User is required"],
+    },
+    product: {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+      required: [true, "Product is required"],
+    },
+    amount: {
+      type: Number,
+      required: [true, "Amount is required"],
+      min: [0, "Amount cannot be negative"],
+    },
+    paymentStatus: {
+      type: String,
+      enum: ["pending", "completed", "failed"],
+      default: "pending",
+    },
+    stripeSessionId: {
+      type: String,
+      required: [true, "Stripe session ID is required"],
+      unique: true,
+    },
+    downloadUrl: {
+      type: String,
+      default: null,
+    },
+    isUpsell: {
+      type: Boolean,
+      default: false,
+    },
+    upsellProduct: {
+      type: Schema.Types.ObjectId,
+      ref: "Product",
+      default: null,
+    },
+  },
+  { timestamps: true },
+);
+
+const Order =
+  mongoose.models.Order || mongoose.model<IOrder>("Order", OrderSchema);
+
+export default Order;
