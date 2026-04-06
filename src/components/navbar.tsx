@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ShoppingCart, Search, Menu, X } from "lucide-react";
+import { useCartStore } from "@/store/cart";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Sheet,
@@ -21,6 +22,8 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
+  const { openCart, items } = useCartStore();
+  const cartCount = items.length;
 
   return (
     <header className="sticky top-0 z-50 bg-[#CC0000] border-b-4 border-black">
@@ -60,13 +63,18 @@ export default function Navbar() {
           >
             <Search size={24} />
           </button>
-          <Link
-            href="/cart"
+          <button
+            onClick={openCart}
             aria-label="Cart"
-            className="text-white hover:text-black transition-colors duration-200"
+            className="relative text-white hover:text-black transition-colors duration-200"
           >
             <ShoppingCart size={24} />
-          </Link>
+            {cartCount > 0 && (
+              <span className="absolute -top-2 -right-2 bg-black text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </button>
         </div>
       </div>
 
@@ -131,13 +139,18 @@ export default function Navbar() {
         </Link>
 
         {/* Right — Cart */}
-        <Link
-          href="/cart"
+        <button
+          onClick={openCart}
           aria-label="Cart"
-          className="text-white hover:text-black transition-colors"
+          className="relative text-white hover:text-black transition-colors"
         >
           <ShoppingCart size={24} />
-        </Link>
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-black text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">
+              {cartCount}
+            </span>
+          )}
+        </button>
       </div>
 
       {/* Search Bar — slides down */}

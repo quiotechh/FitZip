@@ -154,7 +154,7 @@ export default function Footer() {
         </div>
 
         {/* Divider */}
-        <div className="border-t-4 border-black mt-10 md:mt-12 pt-8">
+        <div className=" mt-10 md:mt-12 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
 
             {/* Copyright */}

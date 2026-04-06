@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Montserrat, Poppins } from "next/font/google";
 import "./globals.css";
 import AnnouncementBar from "@/components/announcement-bar";
 import Navbar from "@/components/navbar";
+import CartSidebar from "@/components/cart-sidebar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col bg-[#CC0000] text-black">
         <AnnouncementBar />
         <Navbar />
+        <CartSidebar />
         <main className="flex-1">{children}</main>
       </body>
     </html>

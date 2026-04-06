@@ -33,7 +33,9 @@ export default function Hero() {
           >
             GET FIT. FEEL STRONG.
             <br />
-            NO GYM NEEDED.
+            <span className="bg-[#CC0000] text-white px-2 py-0 leading-none inline-block">
+              NO GYM NEEDED
+            </span>
           </h1>
 
           <Link
