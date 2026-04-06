@@ -11,7 +11,7 @@ const PRODUCTS = [
     price: "$29.99",
     rating: 4.8,
     reviews: 124,
-    image: "/products/workout-ebook.png",
+    image: "/ebooks-cover/reset-your-body-workout-guide.png",
     href: "/products/workout",
   },
   {
@@ -21,7 +21,7 @@ const PRODUCTS = [
     price: "$24.99",
     rating: 4.7,
     reviews: 89,
-    image: "/products/nutrition-ebook.png",
+    image: "/ebooks-cover/reset-your-body-nutriton-guide.png",
     href: "/products/nutrition",
   },
 ];
@@ -79,28 +79,15 @@ export default function ProductsSection() {
                        md:w-auto md:min-w-0 md:max-w-none md:flex-1 md:min-h-[75vh]"
             style={{ boxShadow: "8px 8px 0px #000000" }}
           >
-            {/* Image Area — fixed height mobile, flex-1 on desktop */}
-            <div className="relative h-50 md:flex-1 bg-[#f5f5f5] flex items-center justify-center overflow-hidden">
+            {/* Image Area */}
+            <div className="relative h-72 md:h-96 bg-[#f5f5f5] overflow-hidden">
               <Image
                 src={product.image}
                 alt={product.name}
                 fill
-                className="object-contain p-8 transition-transform duration-500 group-hover:scale-105"
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).style.display = "none";
-                }}
+                sizes="(max-width: 768px) 72vw, 50vw"
+                className="object-cover transition-transform duration-500 group-hover:scale-110"
               />
-              {/* Placeholder */}
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 text-black/20 pointer-events-none">
-                <div className="w-24 h-32 border-2 border-black/20 rounded flex items-center justify-center">
-                  <span
-                    className="text-xs text-center px-2 leading-tight text-black/30"
-                    style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
-                  >
-                    EBOOK COVER
-                  </span>
-                </div>
-              </div>
             </div>
 
             {/* Product Info */}
