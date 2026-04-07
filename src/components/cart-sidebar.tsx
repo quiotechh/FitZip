@@ -3,18 +3,18 @@
 import Image from "next/image";
 import Link from "next/link";
 import { X, ShoppingBag } from "lucide-react";
-import { useCartStore, UPSELL } from "@/store/cart";
+import { useCartStore } from "@/store/cart";
 
 export default function CartSidebar() {
   const { items, isOpen, closeCart, removeItem, addItem, total } = useCartStore();
 
-  // Find upsell — show if one product is in cart and other is not
+  // Find upsell — show the upsellOffer from whichever item is in cart (if other isn't)
   const upsell = (() => {
     const slugs = items.map((i) => i.slug);
     if (slugs.includes("workout") && !slugs.includes("nutrition"))
-      return UPSELL.workout;
+      return items.find((i) => i.slug === "workout")?.upsellOffer ?? null;
     if (slugs.includes("nutrition") && !slugs.includes("workout"))
-      return UPSELL.nutrition;
+      return items.find((i) => i.slug === "nutrition")?.upsellOffer ?? null;
     return null;
   })();
 

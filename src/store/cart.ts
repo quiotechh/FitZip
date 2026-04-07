@@ -1,11 +1,21 @@
 import { create } from "zustand";
 
+export interface UpsellOffer {
+  slug: string;
+  name: string;
+  subtitle: string;
+  price: number;
+  originalPrice: number;
+  image: string;
+}
+
 export interface CartItem {
   slug: string;
   name: string;
   subtitle: string;
   price: number;
   image: string;
+  upsellOffer?: UpsellOffer;
 }
 
 interface CartStore {
@@ -40,22 +50,3 @@ export const useCartStore = create<CartStore>((set, get) => ({
   total: () => get().items.reduce((sum, i) => sum + i.price, 0),
 }));
 
-// Upsell config
-export const UPSELL = {
-  workout: {
-    slug: "nutrition",
-    name: "Reset Your Plate",
-    subtitle: "Nutrition Guide",
-    price: 19,
-    originalPrice: 24.99,
-    image: "/ebooks-cover/reset-your-body-nutriton-guide.png",
-  },
-  nutrition: {
-    slug: "workout",
-    name: "Reset Your Body",
-    subtitle: "Workout Program",
-    price: 19,
-    originalPrice: 27,
-    image: "/ebooks-cover/reset-your-body-workout-guide.png",
-  },
-};
