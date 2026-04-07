@@ -28,6 +28,14 @@ export interface ProductData {
     originalPrice: number;
     image: string;
   };
+  upsellOffer?: {
+    slug: string;
+    name: string;
+    subtitle: string;
+    price: number;
+    originalPrice: number;
+    image: string;
+  };
 }
 
 function Stars({ count }: { count: number }) {
@@ -85,6 +93,7 @@ export default function ProductDetail({ product }: { product: ProductData }) {
       subtitle: product.subtitle,
       price: product.price,
       image: product.image,
+      upsellOffer: product.upsellOffer,
     });
   };
 

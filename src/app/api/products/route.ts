@@ -16,9 +16,19 @@ export async function GET(request: NextRequest) {
 
     const filter = category ? { category } : {};
 
-    const products = await Product.find(filter);
+    const products = await Product.find(filter).populate("upsellProducts");
 
-    return Response.json({ success: true, data: products });
+    const data = products.map((p) => {
+      const doc = p.toObject();
+      if (doc.upsellProducts && doc.upsellDiscount != null) {
+        doc.upsellPrice = parseFloat(
+          (doc.upsellProducts.price * (1 - doc.upsellDiscount / 100)).toFixed(2)
+        );
+      }
+      return doc;
+    });
+
+    return Response.json({ success: true, data });
   } catch (error) {
     return Response.json(
       { success: false, error: "Failed to fetch products" },
