@@ -8,13 +8,14 @@ import { useCartStore } from "@/store/cart";
 export default function CartSidebar() {
   const { items, isOpen, closeCart, removeItem, addItem, total } = useCartStore();
 
-  // Find upsell — show the upsellOffer from whichever item is in cart (if other isn't)
+  // Find upsell — show the first item's upsellOffer if that upsell isn't already in cart
   const upsell = (() => {
     const slugs = items.map((i) => i.slug);
-    if (slugs.includes("workout") && !slugs.includes("nutrition"))
-      return items.find((i) => i.slug === "workout")?.upsellOffer ?? null;
-    if (slugs.includes("nutrition") && !slugs.includes("workout"))
-      return items.find((i) => i.slug === "nutrition")?.upsellOffer ?? null;
+    for (const item of items) {
+      if (item.upsellOffer && !slugs.includes(item.upsellOffer.slug)) {
+        return item.upsellOffer;
+      }
+    }
     return null;
   })();
 

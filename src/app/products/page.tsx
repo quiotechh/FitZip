@@ -1,5 +1,7 @@
 import Footer from "@/components/footer";
 import ProductsClient from "./ProductsClient";
+import dbConnect from "@/lib/db";
+import Product from "@/model/Product";
 
 const TICKER_WORDS = [
   "WORKOUT PROGRAM", "NUTRITION GUIDE", "NO GYM NEEDED", "INSTANT DOWNLOAD",
@@ -9,10 +11,9 @@ const TICKER_WORDS = [
 ];
 
 export default async function ProductsPage() {
-  const res = await fetch("http://localhost:3000/api/products", {
-    cache: "no-store",
-  });
-  const { data: products } = await res.json();
+  await dbConnect();
+  const raw = await Product.find({}).lean();
+  const products = JSON.parse(JSON.stringify(raw));
 
   return (
     <>

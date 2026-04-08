@@ -13,13 +13,31 @@ export async function GET(request: NextRequest) {
     await dbConnect();
 
     const category = request.nextUrl.searchParams.get("category");
+    const slug = request.nextUrl.searchParams.get("slug");
 
-    const filter = category ? { category } : {};
+    if (slug) {
+      const product = await Product.findOne({ slug }).populate("upsellProducts");
+      if (!product) return Response.json({ success: false, error: "Product not found" }, { status: 404 });
+      const doc = product.toObject();
+      delete doc.fileUrl;
+      if (doc.upsellProducts) delete doc.upsellProducts.fileUrl;
+      if (doc.upsellProducts && doc.upsellDiscount != null) {
+        doc.upsellPrice = parseFloat(
+          (doc.upsellProducts.price * (1 - doc.upsellDiscount / 100)).toFixed(2)
+        );
+      }
+      return Response.json({ success: true, data: doc });
+    }
+
+    const filter: Record<string, string> = {};
+    if (category) filter.category = category;
 
     const products = await Product.find(filter).populate("upsellProducts");
 
     const data = products.map((p) => {
       const doc = p.toObject();
+      delete doc.fileUrl;
+      if (doc.upsellProducts) delete doc.upsellProducts.fileUrl;
       if (doc.upsellProducts && doc.upsellDiscount != null) {
         doc.upsellPrice = parseFloat(
           (doc.upsellProducts.price * (1 - doc.upsellDiscount / 100)).toFixed(2)

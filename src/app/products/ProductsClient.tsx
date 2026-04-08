@@ -4,34 +4,17 @@ import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
+import { PRODUCT_CONTENT } from "@/lib/product-content";
+
 interface Product {
   _id: string;
   name: string;
   description: string;
   price: number;
   image: string;
+  slug: string;
   category: string;
 }
-
-// UI-only fields not stored in DB
-const PRODUCT_UI: Record<string, { tag: string; tagColor: string; originalPrice: number; rating: number; reviews: number; features: string[] }> = {
-  workout: {
-    tag: "BEST SELLER",
-    tagColor: "bg-black text-white",
-    originalPrice: 47,
-    rating: 4.8,
-    reviews: 124,
-    features: ["30-Day Plan", "No Equipment", "Joint-Friendly", "PDF Instant Download"],
-  },
-  nutrition: {
-    tag: "NEW",
-    tagColor: "bg-[#CC0000] text-white",
-    originalPrice: 39.99,
-    rating: 4.7,
-    reviews: 89,
-    features: ["Meal Plans Included", "Shopping Lists", "Macro Tracking", "PDF Instant Download"],
-  },
-};
 
 const FILTERS = ["ALL", "WORKOUT", "NUTRITION"] as const;
 type Filter = (typeof FILTERS)[number];
@@ -89,11 +72,11 @@ export default function ProductsClient({ products }: { products: Product[] }) {
       <section className="w-full bg-white py-8 md:py-10 px-4 md:px-8">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 md:h-[calc(100vh-200px)]">
           {filtered.map((product) => {
-            const ui = PRODUCT_UI[product.category] ?? PRODUCT_UI.workout;
+            const ui = PRODUCT_CONTENT[product.slug] ?? PRODUCT_CONTENT["reset-your-body"];
             return (
               <Link
                 key={product._id}
-                href={`/products/${product.category}`}
+                href={`/products/${product.slug}`}
                 className="group flex flex-col bg-white border-[3px] border-black rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 md:h-full"
                 style={{ boxShadow: "8px 8px 0px #000000" }}
               >
@@ -141,7 +124,7 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                     <div className="flex flex-col items-end shrink-0">
                       <Stars rating={ui.rating} />
                       <span className="text-[10px] text-black/50 mt-0.5" style={{ fontFamily: "var(--font-montserrat)" }}>
-                        ({ui.reviews})
+                        ({ui.reviewCount})
                       </span>
                     </div>
                   </div>

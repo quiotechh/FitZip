@@ -42,7 +42,15 @@ export const useCartStore = create<CartStore>((set, get) => ({
   },
 
   removeItem: (slug) =>
-    set((s) => ({ items: s.items.filter((i) => i.slug !== slug) })),
+    set((s) => {
+      const removed = s.items.find((i) => i.slug === slug);
+      const upsellSlug = removed?.upsellOffer?.slug;
+      return {
+        items: s.items.filter(
+          (i) => i.slug !== slug && i.slug !== upsellSlug
+        ),
+      };
+    }),
 
   openCart: () => set({ isOpen: true }),
   closeCart: () => set({ isOpen: false }),
