@@ -23,7 +23,9 @@ export async function GET(
       );
     }
 
-    return Response.json({ success: true, data: product });
+    const doc = product.toObject();
+    delete doc.fileUrl;
+    return Response.json({ success: true, data: doc });
   } catch (error) {
     return Response.json(
       { success: false, error: "Failed to fetch product" },

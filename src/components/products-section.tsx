@@ -12,7 +12,7 @@ const PRODUCTS = [
     rating: 4.8,
     reviews: 124,
     image: "/ebooks-cover/reset-your-body-workout-guide.png",
-    href: "/products/workout",
+    href: "/products/reset-your-body",
   },
   {
     id: 2,
@@ -22,7 +22,7 @@ const PRODUCTS = [
     rating: 4.7,
     reviews: 89,
     image: "/ebooks-cover/reset-your-body-nutriton-guide.png",
-    href: "/products/nutrition",
+    href: "/products/reset-your-plate",
   },
 ];
 
