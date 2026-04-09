@@ -3,12 +3,11 @@ import Link from "next/link";
 const NAV_LINKS = [
   { label: "Products", href: "/products" },
   { label: "About Us", href: "/about" },
-  { label: "Blogs", href: "https://fitzip-newsletter-069955.beehiiv.com" },
-  { label: "Contact Us", href: "mailto:erooney729@gmail.com" },
+  { label: "Blogs", href: "/blogs" },
+  { label: "Contact Us", href: "/contact" },
 ];
 
 const SUPPORT_LINKS = [
-  { label: "Shipping", href: "/shipping" },
   { label: "Return & Refund", href: "/returns" },
   { label: "Privacy Policy", href: "/privacy" },
   { label: "Terms of Service", href: "/terms" },
@@ -34,6 +33,7 @@ function MailIcon() {
 
 export default function Footer() {
   return (
+    <>
     <footer className="w-full bg-[#CC0000] border-t-4 border-black">
       {/* Main footer content */}
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-14 pb-10 md:pt-16 md:pb-12">
@@ -149,6 +149,9 @@ export default function Footer() {
               }}
             >
               Subscribe Free
+              <svg className="inline-block ml-1.5 w-3 h-3 -rotate-45" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </Link>
           </div>
         </div>
@@ -198,5 +201,23 @@ export default function Footer() {
         </p>
       </div>
     </footer>
+
+    <div className="w-full bg-black py-1.5 md:py-3 text-center">
+      <p
+        className="text-white/50 text-[8px] md:text-[10px] uppercase tracking-widest"
+        style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
+      >
+        Made with ❤️ by{" "}
+        <a
+          href="https://www.quiotech.com/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-white/50 hover:text-white transition-colors duration-150 underline underline-offset-2"
+        >
+          Quiotech
+        </a>
+      </p>
+    </div>
+    </>
   );
 }

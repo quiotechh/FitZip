@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Sheet,
   SheetContent,
+  SheetDescription,
   SheetTitle,
   SheetTrigger,
   SheetClose,
@@ -28,14 +29,16 @@ export default function Navbar() {
   return (
     <header className="sticky top-0 z-50 bg-[#CC0000] border-b-4 border-black">
       {/* Desktop Navbar */}
-      <div className="hidden md:grid grid-cols-3 items-center px-10 h-28 max-w-screen-2xl mx-auto w-full">
+      <div className="hidden xl:grid items-center px-6 lg:px-10 h-20 lg:h-28 max-w-screen-2xl mx-auto w-full"
+        style={{ gridTemplateColumns: "1fr auto 1fr" }}
+      >
         {/* Left — Nav Links */}
-        <nav className="flex items-center gap-8">
+        <nav className="flex items-center gap-4 lg:gap-8">
           {NAV_LINKS.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-base font-normal uppercase tracking-normal text-white hover:text-black transition-colors duration-200 "
+              className="text-[10px] lg:text-sm font-black uppercase tracking-widest text-white hover:text-black transition-colors duration-200 whitespace-nowrap"
               style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
             >
               {link.label}
@@ -44,10 +47,10 @@ export default function Navbar() {
         </nav>
 
         {/* Center — Logo */}
-        <div className="flex justify-center">
+        <div className="flex justify-center px-4 lg:px-8">
           <Link
             href="/"
-            className="text-5xl font-black text-white hover:text-black transition-colors duration-200 tracking-normal scale-125 "
+            className="text-4xl lg:text-5xl font-black text-white hover:text-black transition-colors duration-200 tracking-normal"
             style={{ fontFamily: "var(--font-poppins), sans-serif" }}
           >
             FitZip
@@ -55,20 +58,20 @@ export default function Navbar() {
         </div>
 
         {/* Right — Icons */}
-        <div className="flex items-center justify-end gap-6">
-          <button
+        <div className="flex items-center justify-end gap-4 lg:gap-6">
+          {/* <button
             onClick={() => setSearchOpen((v) => !v)}
             aria-label="Search"
             className="text-white hover:text-black transition-colors duration-200"
           >
-            <Search size={24} />
-          </button>
+            <Search size={20} />
+          </button> */}
           <button
             onClick={openCart}
             aria-label="Cart"
             className="relative text-white hover:text-black transition-colors duration-200"
           >
-            <ShoppingCart size={24} />
+            <ShoppingCart size={28} />
             {cartCount > 0 && (
               <span className="absolute -top-2 -right-2 bg-black text-white text-[9px] font-black w-4 h-4 rounded-full flex items-center justify-center">
                 {cartCount}
@@ -78,8 +81,8 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Navbar */}
-      <div className="flex md:hidden items-center justify-between px-5 h-24">
+      {/* Mobile + Tablet Navbar */}
+      <div className="flex xl:hidden items-center justify-between px-5 h-24">
         {/* Left — Hamburger */}
         <Sheet>
           <SheetTrigger asChild>
@@ -93,6 +96,7 @@ export default function Navbar() {
             className="bg-[#CC0000] border-r border-black/10 p-0 w-72"
           >
             <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
+            <SheetDescription className="sr-only">Site navigation links</SheetDescription>
             <div className="flex items-center px-6 py-5 border-b border-black/10">
               <SheetClose asChild>
                 <button aria-label="Close menu" className="text-white/80 hover:text-black transition-colors">
@@ -161,7 +165,7 @@ export default function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.25, ease: "easeInOut" }}
-            className="overflow-hidden border-t border-black/10 hidden md:block"
+            className="overflow-hidden border-t border-black/10 hidden xl:block"
           >
             <div className="max-w-screen-2xl mx-auto px-10 py-4 flex items-center gap-3">
               <Search size={18} className="text-white/60 shrink-0" />

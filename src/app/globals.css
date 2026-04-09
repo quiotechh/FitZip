@@ -153,6 +153,8 @@
 
 .animate-marquee {
   animation: marquee 20s linear infinite;
+  will-change: transform;
+  width: max-content;
 }
 
 @keyframes video-scroll {

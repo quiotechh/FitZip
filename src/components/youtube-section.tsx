@@ -5,11 +5,6 @@ import Link from "next/link";
 
 const VIDEOS = [
   {
-    videoId: "lbKhJYBmfvQ",
-    title: "The ONLY 5 Exercises You Need To Do AFTER Age 40",
-    views: "4.6M views",
-  },
-  {
     videoId: "cI4AW9Jis40",
     title: "5 Exercises That Fix 95% Of Your Problems",
     views: "3.7M views",

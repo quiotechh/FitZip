@@ -1,23 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import Link from "next/link";
 
 export default function NewsletterSection() {
-  const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
-
-  function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (!email) return;
-    // Opens beehiiv subscribe page with email pre-filled
-    window.open(
-      `https://fitzip-newsletter-069955.beehiiv.com/subscribe?email=${encodeURIComponent(email)}`,
-      "_blank"
-    );
-    setSubmitted(true);
-    setEmail("");
-  }
-
   return (
     <section
       className="w-full py-10 md:py-16 px-4 md:px-8 border-t-4 border-black"
@@ -53,49 +38,34 @@ export default function NewsletterSection() {
           Get free weekly tips on bodyweight training, joint health, and nutrition — straight to your inbox. No spam. Unsubscribe anytime.
         </p>
 
-        {/* Form */}
-        {submitted ? (
-          <div
-            className="inline-block px-8 py-4 rounded-2xl border-[3px] border-[#CC0000] text-white font-black uppercase tracking-widest text-sm md:text-base"
-            style={{
-              fontFamily: "var(--font-montserrat), sans-serif",
-              boxShadow: "5px 5px 0px #CC0000",
-            }}
+        {/* CTA Button */}
+        <Link
+          href="https://fitzip-newsletter-069955.beehiiv.com/subscribe"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block px-7 py-3.5 md:py-4 rounded-full bg-[#CC0000] text-white font-black uppercase tracking-widest text-sm md:text-base border-[3px] border-black transition-all duration-200 whitespace-nowrap"
+          style={{
+            fontFamily: "var(--font-montserrat), sans-serif",
+            boxShadow: "5px 5px 0px #000000",
+          }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.boxShadow = "none";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLAnchorElement).style.boxShadow = "5px 5px 0px #000000";
+          }}
+        >
+          Subscribe Free
+          <svg
+            className="inline-block ml-2 w-4 h-4 -rotate-45"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2.5}
+            viewBox="0 0 24 24"
           >
-            ✓ Check your inbox — you&apos;re in!
-          </div>
-        ) : (
-          <form
-            onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row items-stretch gap-3 max-w-xl mx-auto"
-          >
-            <input
-              type="email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              className="flex-1 px-5 py-3.5 md:py-4 rounded-full bg-white/10 text-white placeholder-white/30 border-[3px] border-white/20 focus:border-white/60 outline-none text-sm md:text-base transition-colors duration-200"
-              style={{ fontFamily: "var(--font-montserrat), sans-serif" }}
-            />
-            <button
-              type="submit"
-              className="px-7 py-3.5 md:py-4 rounded-full bg-[#CC0000] text-white font-black uppercase tracking-widest text-sm md:text-base border-[3px] border-black transition-all duration-200 whitespace-nowrap"
-              style={{
-                fontFamily: "var(--font-montserrat), sans-serif",
-                boxShadow: "5px 5px 0px #000000",
-              }}
-              onMouseEnter={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.boxShadow = "none";
-              }}
-              onMouseLeave={(e) => {
-                (e.currentTarget as HTMLButtonElement).style.boxShadow = "5px 5px 0px #000000";
-              }}
-            >
-              Subscribe Free
-            </button>
-          </form>
-        )}
+            <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </Link>
 
         {/* Social proof */}
         <p
