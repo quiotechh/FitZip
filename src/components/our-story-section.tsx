@@ -77,7 +77,7 @@ export default function OurStorySection() {
           className="text-3xl md:text-6xl lg:text-7xl font-black uppercase text-white leading-tight tracking-tight max-w-4xl mx-auto"
           style={{ fontFamily: "var(--font-poppins), sans-serif" }}
         >
-          We Make Fitness Fun,<br />Not Complicated.
+          We Make Fitness Easy,<br />Not Complicated.
         </h2>
         <div className="mt-8">
           <Link

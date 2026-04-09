@@ -28,7 +28,7 @@ export default function Hero() {
       <div className="relative w-full flex items-center justify-center px-6 py-10 md:py-20 overflow-hidden">
         <div className="text-center max-w-5xl mx-auto">
           <h1
-            className="text-3xl md:text-7xl lg:text-8xl font-black uppercase leading-tight tracking-tight text-black mb-8"
+            className="text-3xl md:text-[clamp(2rem,5.5vw,6rem)] font-black uppercase leading-tight tracking-tight text-black mb-8 md:whitespace-nowrap"
             style={{ fontFamily: "var(--font-poppins), sans-serif" }}
           >
             GET FIT. FEEL STRONG.

@@ -70,18 +70,18 @@ export default function ProductsClient({ products }: { products: Product[] }) {
 
       {/* ── PRODUCTS GRID ── */}
       <section className="w-full bg-white py-8 md:py-10 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 md:h-[calc(100vh-200px)]">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {filtered.map((product) => {
             const ui = PRODUCT_CONTENT[product.slug] ?? PRODUCT_CONTENT["reset-your-body"];
             return (
               <Link
                 key={product._id}
                 href={`/products/${product.slug}`}
-                className="group flex flex-col bg-white border-[3px] border-black rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 md:h-full"
+                className="group flex flex-col bg-white border-[3px] border-black rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
                 style={{ boxShadow: "8px 8px 0px #000000" }}
               >
                 {/* Image */}
-                <div className="relative h-52 md:flex-1 bg-[#f5f5f5] overflow-hidden">
+                <div className="relative h-80 md:h-[430px] xl:h-[570px] bg-[#f5f5f5] overflow-hidden">
                   <Image
                     src={product.image}
                     alt={product.name}

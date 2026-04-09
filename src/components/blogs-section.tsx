@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 
 const BLOGS = [
   {
@@ -43,26 +42,25 @@ export default function BlogsSection() {
         {BLOGS.map((blog) => (
           <Link
             key={blog.slug}
-            href={`https://fitzip-newsletter-069955.beehiiv.com/p/${blog.slug}`}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={`/blogs/${blog.slug}`}
             className="group flex flex-col bg-white border-[3px] border-black rounded-2xl overflow-hidden transition-transform duration-200 hover:-translate-y-1"
             style={{ boxShadow: "6px 6px 0px #000000" }}
           >
             {/* Image */}
-            <div className="relative w-full bg-[#CC0000] overflow-hidden"
+            <div
+              className="relative w-full bg-[#CC0000] overflow-hidden flex items-center justify-center"
               style={{ aspectRatio: "16/10" }}
             >
-              <Image
-                src={blog.image}
-                alt={blog.title}
-                fill
-                className="object-contain p-8 md:p-10 transition-transform duration-500 group-hover:scale-105"
-                unoptimized
-                onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).style.display = "none";
+              <p
+                className="text-white/[0.12] font-black uppercase select-none leading-none"
+                style={{
+                  fontFamily: "var(--font-poppins), sans-serif",
+                  fontSize: "clamp(36px, 9vw, 80px)",
+                  fontWeight: 900,
                 }}
-              />
+              >
+                FITZIP
+              </p>
             </div>
 
             {/* Content */}
@@ -118,9 +116,7 @@ export default function BlogsSection() {
       {/* Read More button */}
       <div className="flex justify-center mt-10 md:mt-14">
         <Link
-          href="https://fitzip-newsletter-069955.beehiiv.com"
-          target="_blank"
-          rel="noopener noreferrer"
+          href="/blogs"
           className="inline-block px-6 py-2.5 md:px-10 md:py-4 rounded-full bg-[#CC0000] text-white font-black uppercase tracking-widest text-sm md:text-lg transition-all duration-200 border-[3px] border-black"
           style={{
             fontFamily: "var(--font-montserrat), sans-serif",

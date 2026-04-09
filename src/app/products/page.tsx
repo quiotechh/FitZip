@@ -72,18 +72,17 @@ export default async function ProductsPage() {
 
       {/* ── TRUST STRIP ── */}
       <section className="w-full bg-black border-y-4 border-black py-6 px-4">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-center gap-8 md:gap-16">
+        <div className="max-w-7xl mx-auto flex flex-nowrap items-center justify-center gap-6 md:gap-16">
           {[
             ["228K+", "YouTube Subscribers"],
-            ["10K+", "Consistent Monthly Views"],
             ["100%", "Bodyweight — No Gym"],
             ["Instant", "PDF Download"],
           ].map(([stat, label]) => (
             <div key={stat} className="text-center">
-              <p className="text-[#CC0000] text-2xl md:text-3xl font-black" style={{ fontFamily: "var(--font-poppins)" }}>
+              <p className="text-[#CC0000] text-lg md:text-3xl font-black" style={{ fontFamily: "var(--font-poppins)" }}>
                 {stat}
               </p>
-              <p className="text-white/50 text-xs uppercase tracking-widest mt-0.5" style={{ fontFamily: "var(--font-montserrat)" }}>
+              <p className="text-white/50 text-[9px] md:text-xs uppercase tracking-widest mt-0.5" style={{ fontFamily: "var(--font-montserrat)" }}>
                 {label}
               </p>
             </div>
