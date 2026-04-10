@@ -7,6 +7,7 @@ import Footer from "@/components/footer";
 import { useCartStore } from "@/store/cart";
 
 export interface ProductData {
+  _id: string;
   slug: string;
   name: string;
   subtitle: string;
@@ -29,6 +30,7 @@ export interface ProductData {
     image: string;
   };
   upsellOffer?: {
+    productId: string;
     slug: string;
     name: string;
     subtitle: string;
@@ -88,6 +90,7 @@ export default function ProductDetail({ product }: { product: ProductData }) {
 
   const handleAddToCart = () => {
     addItem({
+      productId: product._id,
       slug: product.slug,
       name: product.name,
       subtitle: product.subtitle,
@@ -108,7 +111,7 @@ export default function ProductDetail({ product }: { product: ProductData }) {
 
           {/* Left — Image */}
           <div
-            className="relative w-full aspect-[3/4] bg-[#f5f5f5] border-[3px] border-black rounded-2xl overflow-hidden"
+            className="relative w-full aspect-3/4 bg-[#f5f5f5] border-[3px] border-black rounded-2xl overflow-hidden"
             style={{ boxShadow: "8px 8px 0px #000000" }}
           >
             <Image

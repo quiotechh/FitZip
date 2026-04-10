@@ -13,6 +13,7 @@ interface PopulatedProduct {
   category: string;
   upsellDiscount: number | null;
   upsellProducts: {
+    _id: unknown;
     slug: string;
     name: string;
     price: number;
@@ -29,9 +30,9 @@ export default async function ProductPage({
   const { slug } = await params;
 
   await dbConnect();
-  const dbProduct = await Product.findOne({ slug })
+  const dbProduct = (await Product.findOne({ slug })
     .populate("upsellProducts")
-    .lean() as PopulatedProduct | null;
+    .lean()) as PopulatedProduct | null;
 
   // Product not in DB → 404
   if (!dbProduct) notFound();
@@ -44,11 +45,12 @@ export default async function ProductPage({
   const upsellOffer =
     upsell && dbProduct.upsellDiscount != null
       ? {
+          productId: String(upsell._id),
           slug: upsell.slug,
           name: upsell.name,
           subtitle: PRODUCT_CONTENT[upsell.slug]?.subtitle ?? "",
           price: parseFloat(
-            (upsell.price * (1 - dbProduct.upsellDiscount / 100)).toFixed(2)
+            (upsell.price * (1 - dbProduct.upsellDiscount / 100)).toFixed(2),
           ),
           originalPrice: upsell.price,
           image: upsell.image,
@@ -56,6 +58,7 @@ export default async function ProductPage({
       : undefined;
 
   const product: ProductData = {
+    _id: String(dbProduct._id),
     slug,
     name: dbProduct.name,
     subtitle: content.subtitle,
@@ -76,7 +79,8 @@ export default async function ProductPage({
           name: upsell.name,
           subtitle: PRODUCT_CONTENT[upsell.slug]?.subtitle ?? "",
           price: upsell.price,
-          originalPrice: PRODUCT_CONTENT[upsell.slug]?.originalPrice ?? upsell.price,
+          originalPrice:
+            PRODUCT_CONTENT[upsell.slug]?.originalPrice ?? upsell.price,
           image: upsell.image,
         }
       : {
