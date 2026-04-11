@@ -8,6 +8,7 @@ import Order from "@/model/Order";
 export async function POST(request: NextRequest) {
   try {
     const { email, items } = await request.json();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     // Validate input
     if (!email || !Array.isArray(items) || items.length === 0) {
@@ -17,7 +18,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (!email.includes("@")) {
+    if (!emailRegex.test(email)) {
       return NextResponse.json(
         { error: "Valid email is required" },
         { status: 400 },
