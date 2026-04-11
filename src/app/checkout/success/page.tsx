@@ -17,11 +17,11 @@ export default async function CheckoutSuccessPage({
         <p className="text-gray-600 mb-2">
           Thank you for your purchase! Your order has been confirmed.
         </p>
-        {session_id && (
+        {/* {session_id && (
           <p className="text-sm text-gray-400 mb-6">
             Session ID: {session_id}
           </p>
-        )}
+        )} */}
         <p className="text-gray-600 mb-8">
           Check your email for download links and receipt details.
         </p>
