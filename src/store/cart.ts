@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 export interface UpsellOffer {
+  productId: string;
   slug: string;
   name: string;
   subtitle: string;
@@ -15,6 +16,7 @@ export interface CartItem {
   subtitle: string;
   price: number;
   image: string;
+  productId: string;
   upsellOffer?: UpsellOffer;
 }
 
@@ -33,6 +35,11 @@ export const useCartStore = create<CartStore>((set, get) => ({
   isOpen: false,
 
   addItem: (item) => {
+    if (!item.productId) {
+      console.warn("Cart item missing productId, item not added:", item);
+      return;
+    }
+
     const exists = get().items.find((i) => i.slug === item.slug);
     if (!exists) {
       set((s) => ({ items: [...s.items, item], isOpen: true }));
@@ -46,9 +53,7 @@ export const useCartStore = create<CartStore>((set, get) => ({
       const removed = s.items.find((i) => i.slug === slug);
       const upsellSlug = removed?.upsellOffer?.slug;
       return {
-        items: s.items.filter(
-          (i) => i.slug !== slug && i.slug !== upsellSlug
-        ),
+        items: s.items.filter((i) => i.slug !== slug && i.slug !== upsellSlug),
       };
     }),
 
@@ -57,4 +62,3 @@ export const useCartStore = create<CartStore>((set, get) => ({
 
   total: () => get().items.reduce((sum, i) => sum + i.price, 0),
 }));
-

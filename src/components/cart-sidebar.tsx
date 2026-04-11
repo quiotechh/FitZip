@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { X, ShoppingBag } from "lucide-react";
 import { useCartStore } from "@/store/cart";
+import CheckoutButton from "./checkout-button";
 
 export default function CartSidebar() {
-  const { items, isOpen, closeCart, removeItem, addItem, total } = useCartStore();
+  const { items, isOpen, closeCart, removeItem, addItem, total } =
+    useCartStore();
 
   // Find upsell — show the first item's upsellOffer if that upsell isn't already in cart
   const upsell = (() => {
@@ -23,10 +24,7 @@ export default function CartSidebar() {
     <>
       {/* Backdrop */}
       {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-50"
-          onClick={closeCart}
-        />
+        <div className="fixed inset-0 bg-black/50 z-50" onClick={closeCart} />
       )}
 
       {/* Sidebar */}
@@ -86,7 +84,7 @@ export default function CartSidebar() {
               {items.map((item) => (
                 <div
                   key={item.slug}
-                  className="flex gap-3 border-[2px] border-black p-3 rounded-xl"
+                  className="flex gap-3 border-2 border-black p-3 rounded-xl"
                 >
                   <div className="relative w-16 h-20 shrink-0 bg-[#f5f5f5] border-2 border-black rounded-lg overflow-hidden">
                     <Image
@@ -133,7 +131,7 @@ export default function CartSidebar() {
 
               {/* Upsell */}
               {upsell && (
-                <div className="border-[2px] border-dashed border-[#CC0000] rounded-xl p-3 bg-red-50">
+                <div className="border-2 border-dashed border-[#CC0000] rounded-xl p-3 bg-red-50">
                   <p
                     className="text-[10px] text-[#CC0000] font-black uppercase tracking-widest mb-2"
                     style={{ fontFamily: "var(--font-montserrat)" }}
@@ -158,10 +156,16 @@ export default function CartSidebar() {
                         {upsell.name}
                       </p>
                       <div className="flex items-baseline gap-1.5 mt-0.5">
-                        <span className="text-[#CC0000] font-black text-base" style={{ fontFamily: "var(--font-poppins)" }}>
+                        <span
+                          className="text-[#CC0000] font-black text-base"
+                          style={{ fontFamily: "var(--font-poppins)" }}
+                        >
                           ${upsell.price}
                         </span>
-                        <span className="text-black/30 text-xs line-through" style={{ fontFamily: "var(--font-montserrat)" }}>
+                        <span
+                          className="text-black/30 text-xs line-through"
+                          style={{ fontFamily: "var(--font-montserrat)" }}
+                        >
                           ${upsell.originalPrice}
                         </span>
                       </div>
@@ -169,6 +173,7 @@ export default function CartSidebar() {
                     <button
                       onClick={() =>
                         addItem({
+                          productId: upsell.productId,
                           slug: upsell.slug,
                           name: upsell.name,
                           subtitle: upsell.subtitle,
@@ -205,14 +210,12 @@ export default function CartSidebar() {
                 ${total().toFixed(2)}
               </span>
             </div>
-            <Link
-              href="/checkout"
-              onClick={closeCart}
-              className="w-full bg-black text-white font-black uppercase tracking-widest text-sm py-4 text-center border-[3px] border-black hover:bg-[#CC0000] transition-colors"
-              style={{ fontFamily: "var(--font-montserrat)" }}
-            >
-              Checkout · ${total().toFixed(2)} →
-            </Link>
+            <CheckoutButton
+              items={items.map((item) => ({
+                productId: item.productId,
+              }))}
+              total={total()}
+            />
             <p
               className="text-center text-[10px] text-black/30 uppercase tracking-widest"
               style={{ fontFamily: "var(--font-montserrat)" }}

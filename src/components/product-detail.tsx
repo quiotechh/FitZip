@@ -7,6 +7,7 @@ import Footer from "@/components/footer";
 import { useCartStore } from "@/store/cart";
 
 export interface ProductData {
+  _id: string;
   slug: string;
   name: string;
   subtitle: string;
@@ -29,6 +30,7 @@ export interface ProductData {
     image: string;
   };
   upsellOffer?: {
+    productId: string;
     slug: string;
     name: string;
     subtitle: string;
@@ -92,6 +94,7 @@ export default function ProductDetail({ product }: { product: ProductData }) {
 
   const handleAddToCart = () => {
     addItem({
+      productId: product._id,
       slug: product.slug,
       name: product.name,
       subtitle: product.subtitle,
