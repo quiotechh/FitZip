@@ -5,9 +5,9 @@ import Link from "next/link";
 import Footer from "@/components/footer";
 
 const TICKER_WORDS = [
-  "228K SUBSCRIBERS", "3 YEARS FULL TIME", "159 VIDEOS", "22M+ VIEWS",
+  "228K SUBSCRIBERS", "3+ YEARS FULL TIME", "159 VIDEOS", "22M+ VIEWS",
   "NO GYM NEEDED", "BODYWEIGHT ONLY", "JOINT FRIENDLY", "REAL RESULTS",
-  "228K SUBSCRIBERS", "3 YEARS FULL TIME", "159 VIDEOS", "22M+ VIEWS",
+  "228K SUBSCRIBERS", "3+ YEARS FULL TIME", "159 VIDEOS", "22M+ VIEWS",
   "NO GYM NEEDED", "BODYWEIGHT ONLY", "JOINT FRIENDLY", "REAL RESULTS",
 ];
 
@@ -15,22 +15,22 @@ const BELIEFS = [
   {
     number: "01",
     title: "Fitness Should Be Accessible",
-    body: "You don't need a gym membership, expensive equipment, or a personal trainer to build real strength. A floor and the will to move is all you need.",
+    body: "You don't need a gym membership, expensive equipment, or a personal trainer to build real strength, mobility & stability. A floor and the will to move is all you need.",
   },
   {
     number: "02",
     title: "Joint Health Comes First",
-    body: "Soreness isn't a badge of honour. Eric builds every program around protecting your joints so you can train for life — not just for the next 30 days.",
+    body: "Soreness isn't a badge of honour. FitZip builds every program around protecting your joints so you can train for life — not just for the next 30 days.",
   },
   {
     number: "03",
     title: "No Fluff. No BS.",
-    body: "Every video is under 10 minutes and packed with actionable movement science. No filler, no supplement plugs — just the knowledge that actually works.",
+    body: "Every video is built around real movement science you can apply the same day. No filler, no fluff — just the knowledge that actually works.",
   },
   {
     number: "04",
     title: "Consistency Beats Intensity",
-    body: "One heavy week doesn't change a body. Showing up every week for three years does. Eric lives this — and his channel is proof of it.",
+    body: "One heavy week doesn't change a body. Showing up every week for three years does. FitZip lives this — and the channel is proof of it.",
   },
 ];
 
@@ -38,7 +38,7 @@ const STATS = [
   ["228K+", "YouTube Subscribers"],
   ["159+", "Videos Published"],
   ["22M+", "Total Views"],
-  ["3 Yrs", "Full-Time Creator"],
+  ["3 Yrs+", "Full-Time Creator"],
 ];
 
 export default function AboutPage() {
@@ -57,7 +57,7 @@ export default function AboutPage() {
               whiteSpace: "nowrap",
             }}
           >
-            ERIC ROONEY
+            FITZIP
           </p>
 
           <div className="relative z-10 text-center max-w-4xl mx-auto">
@@ -65,21 +65,21 @@ export default function AboutPage() {
               className="inline-block bg-black text-white text-[10px] md:text-xs font-black uppercase tracking-widest px-4 py-1.5 mb-5"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              ✦ The Man Behind FitZip ✦
+              ✦ Who We Are ✦
             </span>
             <h1
               className="text-4xl md:text-7xl lg:text-8xl font-black uppercase text-white leading-tight tracking-tight mb-0"
               style={{ fontFamily: "var(--font-poppins)" }}
             >
-              MEET
+              GET TO KNOW
               <br />
-              <span className="bg-black text-white px-2 inline-block">ERIC ROONEY</span>
+              <span className="bg-black text-white px-2 inline-block">FITZIP</span>
             </h1>
             <p
               className="text-white/60 text-sm md:text-base mt-6 max-w-lg mx-auto"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Full-time fitness creator. Bodyweight movement coach. The guy who made 228,000 people realise they never needed a gym.
+              Full-time fitness brand. Bodyweight movement coaching. The brand that made 228,000 people realise they never needed a gym.
             </p>
           </div>
         </div>
@@ -112,7 +112,7 @@ export default function AboutPage() {
           >
             <Image
               src="/eric-rooney.jpg"
-              alt="Eric Rooney — FitZip Founder"
+              alt="FitZip — Fitness Brand"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
@@ -148,7 +148,7 @@ export default function AboutPage() {
                 className="text-[#CC0000] text-xs font-black uppercase tracking-widest mb-2"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
-                His Story
+                Our Story
               </p>
               <h2
                 className="text-3xl md:text-5xl font-black uppercase leading-tight text-black"
@@ -164,21 +164,21 @@ export default function AboutPage() {
               className="text-black/70 text-sm md:text-base leading-relaxed border-l-4 border-[#CC0000] pl-4"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Eric Rooney is a bodyweight movement coach and full-time fitness creator based in the United States. He launched his YouTube channel in December 2022 and never looked back.
+              FitZip is a bodyweight fitness brand based in the United States. We launched our YouTube channel in December 2022 and never looked back.
             </p>
 
             <p
               className="text-black/60 text-sm md:text-base leading-relaxed"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              In just three years, Eric built one of the fastest-growing bodyweight fitness channels on YouTube — growing to over 228,000 subscribers and 22 million views without ever stepping foot in a commercial gym on camera.
+              In just three years, FitZip built one of the fastest-growing bodyweight fitness channels on YouTube — growing to over 228,000 subscribers and 22 million views without ever stepping foot in a commercial gym on camera.
             </p>
 
             <p
               className="text-black/60 text-sm md:text-base leading-relaxed"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              His approach is simple: movement science that respects your joints, programs anyone can follow at home, and content that cuts straight to what works. No fluff. No supplements. Just results.
+              Our approach is simple: movement science that respects your joints, programs anyone can follow at home, and content that cuts straight to what works. No fluff. Just results.
             </p>
 
             <div className="flex flex-wrap gap-2 pt-1">
@@ -226,13 +226,13 @@ export default function AboutPage() {
               className="inline-block bg-black text-white text-[10px] font-black uppercase tracking-widest px-4 py-1.5 mb-4"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              ✦ His Philosophy ✦
+              ✦ Our Philosophy ✦
             </span>
             <h2
               className="text-3xl md:text-5xl font-black uppercase text-black leading-tight"
               style={{ fontFamily: "var(--font-poppins)" }}
             >
-              What Eric
+              What FitZip
               <br />
               <span className="bg-[#CC0000] text-white px-2 inline-block">Believes In</span>
             </h2>
@@ -282,7 +282,7 @@ export default function AboutPage() {
               className="text-3xl md:text-5xl font-black uppercase text-black leading-tight"
               style={{ fontFamily: "var(--font-poppins)" }}
             >
-              228K People Can&apos;t
+              228K+ People Can&apos;t
               <br />
               <span className="bg-[#CC0000] text-white px-2 inline-block">Be Wrong.</span>
             </h2>
@@ -290,7 +290,7 @@ export default function AboutPage() {
               className="text-black/50 text-sm md:text-base mt-4 max-w-lg mx-auto"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Every week Eric drops a new video packed with real movement science — completely free. No gym required, no equipment needed.
+              Every week FitZip drops a new video packed with real movement science — completely free. No gym required, no equipment needed.
             </p>
           </div>
 
@@ -312,7 +312,7 @@ export default function AboutPage() {
 
             <div className="flex-1 text-center md:text-left">
               <p
-                className="text-white/40 text-[10px] font-black uppercase tracking-widest mb-1"
+                className="text-[#CC0000] text-[10px] font-black uppercase tracking-widest mb-1"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 YouTube Channel
@@ -324,16 +324,16 @@ export default function AboutPage() {
                 FitZip
               </h3>
               <p
-                className="text-white/40 text-xs uppercase tracking-widest mb-4"
+                className="text-white/70 text-xs uppercase tracking-widest mb-4"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
-                @fitzip · 228K subscribers · 159 videos
+                @fitzip · 228K+ subscribers · 159 videos
               </p>
               <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                {["New videos every week", "Under 10 minutes", "100% free"].map((pill) => (
+                {["New videos every week", "Science-backed content", "100% free"].map((pill) => (
                   <span
                     key={pill}
-                    className="text-[10px] font-black uppercase tracking-wider border border-white/20 text-white/50 px-3 py-1"
+                    className="text-[10px] font-black uppercase tracking-wider border border-white/50 text-white px-3 py-1"
                     style={{ fontFamily: "var(--font-montserrat)" }}
                   >
                     ✓ {pill}
@@ -367,7 +367,7 @@ export default function AboutPage() {
           className="text-3xl md:text-6xl font-black uppercase text-white leading-tight tracking-tight max-w-3xl mx-auto mb-8"
           style={{ fontFamily: "var(--font-poppins)" }}
         >
-          Train Like Eric.
+          Train With FitZip.
           <br />
           No Gym Needed.
         </h2>

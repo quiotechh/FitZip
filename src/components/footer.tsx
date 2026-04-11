@@ -142,7 +142,7 @@ export default function Footer() {
               href="https://fitzip-newsletter-069955.beehiiv.com/subscribe"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block px-4 py-2 rounded-full bg-black text-white text-xs font-black uppercase tracking-widest border-2 border-black transition-all duration-150"
+              className="inline-block px-4 py-2 rounded-full bg-black text-white text-xs font-black uppercase tracking-widest border-2 border-black transition-all duration-150 whitespace-nowrap"
               style={{
                 fontFamily: "var(--font-montserrat), sans-serif",
                 boxShadow: "3px 3px 0px #000000",

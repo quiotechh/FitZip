@@ -4,7 +4,7 @@ const SECTIONS = [
   {
     title: "Who We Are",
     body: [
-      "FitZip is a digital fitness brand operated by Eric Rooney, based in the United States. We sell digital workout and nutrition programs online at fitzipp.com.",
+      "FitZip is a digital fitness brand based in the United States. We sell digital workout and nutrition programs online at fitzipp.com.",
       "If you have questions about this policy, contact us at erooney729@gmail.com.",
     ],
   },
@@ -19,7 +19,7 @@ const SECTIONS = [
   {
     title: "How We Use Your Information",
     body: [
-      "• To process and fulfil your digital product orders",
+      "• To process and fulfill your digital product orders",
       "• To send your purchase confirmation and download link",
       "• To send our newsletter if you have subscribed (you may unsubscribe at any time)",
       "• To respond to your support or refund enquiries",

@@ -86,6 +86,10 @@ export default function ProductDetail({ product }: { product: ProductData }) {
   const { addItem } = useCartStore();
   const discount = Math.round((1 - product.price / product.originalPrice) * 100);
 
+  // Gallery: first slot is the main product image; remaining 4 are placeholders until images are added
+  const thumbnails: (string | null)[] = [product.image, null, null, null, null];
+  const [activeImage, setActiveImage] = useState<string>(product.image);
+
   const handleAddToCart = () => {
     addItem({
       slug: product.slug,
@@ -106,25 +110,53 @@ export default function ProductDetail({ product }: { product: ProductData }) {
       <section className="w-full bg-white border-b-4 border-black">
         <div className="max-w-7xl mx-auto px-4 md:px-8 py-10 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start">
 
-          {/* Left — Image */}
-          <div
-            className="relative w-full aspect-[3/4] bg-[#f5f5f5] border-[3px] border-black rounded-2xl overflow-hidden"
-            style={{ boxShadow: "8px 8px 0px #000000" }}
-          >
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover"
-              priority
-            />
-            <span
-              className={`absolute top-4 left-4 ${product.tagColor} text-[10px] font-black uppercase tracking-widest px-3 py-1.5 border-2 border-black`}
-              style={{ fontFamily: "var(--font-montserrat)", boxShadow: "3px 3px 0px #000000" }}
+          {/* Left — Image Gallery */}
+          <div className="flex flex-col gap-3">
+            {/* Main image */}
+            <div
+              className="relative w-full aspect-3/4 bg-[#f5f5f5] border-[3px] border-black rounded-2xl overflow-hidden"
+              style={{ boxShadow: "8px 8px 0px #000000" }}
             >
-              {product.tag}
-            </span>
+              <Image
+                src={activeImage}
+                alt={product.name}
+                fill
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="object-cover transition-opacity duration-200"
+                priority
+              />
+              <span
+                className={`absolute top-4 left-4 ${product.tagColor} text-[10px] font-black uppercase tracking-widest px-3 py-1.5 border-2 border-black`}
+                style={{ fontFamily: "var(--font-montserrat)", boxShadow: "3px 3px 0px #000000" }}
+              >
+                {product.tag}
+              </span>
+            </div>
+
+            {/* Thumbnails */}
+            <div className="grid grid-cols-5 gap-2">
+              {thumbnails.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => src && setActiveImage(src)}
+                  className={`relative aspect-square rounded-xl overflow-hidden border-[3px] transition-all duration-150 bg-[#f5f5f5]
+                    ${src && activeImage === src ? "border-black" : "border-black/20"}
+                    ${src ? "cursor-pointer hover:border-black/60" : "cursor-default"}`}
+                >
+                  {src ? (
+                    <Image
+                      src={src}
+                      alt={`${product.name} view ${i + 1}`}
+                      fill
+                      sizes="20vw"
+                      className="object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-[#ebebeb]" />
+                  )}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Right — Buy box */}
@@ -361,13 +393,13 @@ export default function ProductDetail({ product }: { product: ProductData }) {
             className="group flex flex-col md:flex-row bg-white border-[3px] border-black rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
             style={{ boxShadow: "8px 8px 0px #000000" }}
           >
-            <div className="relative h-56 md:w-72 md:h-auto bg-[#f5f5f5] shrink-0 overflow-hidden">
+            <div className="relative w-full aspect-4/3 md:w-72 md:aspect-auto md:self-stretch bg-[#f5f5f5] shrink-0">
               <Image
                 src={product.recommended.image}
                 alt={product.recommended.name}
                 fill
                 sizes="(max-width: 768px) 100vw, 288px"
-                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                className="object-contain transition-transform duration-500 group-hover:scale-105"
               />
             </div>
             <div className="p-6 md:p-8 flex flex-col justify-center gap-3">
