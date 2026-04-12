@@ -88,8 +88,23 @@ export default function ProductDetail({ product }: { product: ProductData }) {
   const { addItem } = useCartStore();
   const discount = Math.round((1 - product.price / product.originalPrice) * 100);
 
-  // Gallery: first slot is the main product image; remaining 4 are placeholders until images are added
-  const thumbnails: (string | null)[] = [product.image, null, null, null, null];
+  // Gallery images per product slug
+  const GALLERY_IMAGES: Record<string, string[]> = {
+    "reset-your-body": [
+      product.image,
+      "/reset-your-body-pics/part1.png",
+      "/reset-your-body-pics/part2.png",
+      "/reset-your-body-pics/part3.png",
+      "/reset-your-body-pics/charts.png",
+    ],
+  };
+
+  const galleryImages = GALLERY_IMAGES[product.slug] ?? [product.image];
+  // Pad to 5 slots with nulls
+  const thumbnails: (string | null)[] = [
+    ...galleryImages,
+    ...Array(Math.max(0, 5 - galleryImages.length)).fill(null),
+  ];
   const [activeImage, setActiveImage] = useState<string>(product.image);
 
   const handleAddToCart = () => {
@@ -388,7 +403,7 @@ export default function ProductDetail({ product }: { product: ProductData }) {
             className="text-center text-black/40 text-sm mb-10"
             style={{ fontFamily: "var(--font-montserrat)" }}
           >
-            Get even better results with the complete system
+            When it arrives — pair this workout with our nutrition guide for the complete system
           </p>
 
           <Link
@@ -418,16 +433,14 @@ export default function ProductDetail({ product }: { product: ProductData }) {
               >
                 {product.recommended.name}
               </h3>
-              <div className="flex items-baseline gap-2">
-                <span className="text-2xl font-black" style={{ fontFamily: "var(--font-poppins)" }}>
-                  ${product.recommended.price}
-                </span>
-                <span className="text-sm text-black/30 line-through" style={{ fontFamily: "var(--font-montserrat)" }}>
-                  ${product.recommended.originalPrice}
-                </span>
-              </div>
               <span
-                className="self-start bg-[#CC0000] text-white text-xs font-black uppercase tracking-widest px-5 py-2.5 border-2 border-black transition-all duration-200 group-hover:bg-black mt-1"
+                className="self-start bg-black text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 border-2 border-black mb-1"
+                style={{ fontFamily: "var(--font-montserrat)" }}
+              >
+                ✦ Coming Soon
+              </span>
+              <span
+                className="self-start bg-[#CC0000] text-white text-xs font-black uppercase tracking-widest px-5 py-2.5 border-2 border-black transition-all duration-200 group-hover:bg-black"
                 style={{ fontFamily: "var(--font-montserrat)", boxShadow: "3px 3px 0px #000000" }}
               >
                 View Program →

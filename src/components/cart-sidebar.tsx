@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect } from "react";
 import { X, ShoppingBag } from "lucide-react";
 import { useCartStore } from "@/store/cart";
 import CheckoutButton from "./checkout-button";
@@ -8,6 +9,16 @@ import CheckoutButton from "./checkout-button";
 export default function CartSidebar() {
   const { items, isOpen, closeCart, removeItem, addItem, total } =
     useCartStore();
+
+  // Lock body scroll when cart is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [isOpen]);
 
   // Find upsell — show the first item's upsellOffer if that upsell isn't already in cart
   const upsell = (() => {

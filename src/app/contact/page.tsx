@@ -65,6 +65,7 @@ const TICKER_WORDS = [
 
 type FormState = "idle" | "loading" | "success" | "error";
 
+
 function TopicDropdown({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
@@ -132,6 +133,7 @@ function TopicDropdown({ value, onChange }: { value: string; onChange: (v: strin
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<FormState>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -149,6 +151,7 @@ export default function ContactPage() {
     e.preventDefault();
     if (!form.topic) return;
     setFormState("loading");
+    setErrorMsg("");
 
     try {
       const res = await fetch("/api/contact", {
@@ -161,9 +164,12 @@ export default function ContactPage() {
         setFormState("success");
         setForm({ name: "", email: "", topic: "", message: "" });
       } else {
+        const data = await res.json().catch(() => ({}));
+        setErrorMsg(data.error ?? "Something went wrong. Please try again.");
         setFormState("error");
       }
     } catch {
+      setErrorMsg("Something went wrong. Please email us directly at erooney729@gmail.com.");
       setFormState("error");
     }
   };
@@ -394,7 +400,7 @@ export default function ContactPage() {
                         value={form.name}
                         onChange={handleChange}
                         required
-                        placeholder="Eric Rooney"
+                        placeholder="John Smith"
                         className="w-full px-4 py-3 border-[3px] border-black rounded-none text-sm text-black placeholder:text-black/25 outline-none focus:border-[#CC0000] transition-colors duration-150 bg-white"
                         style={{ fontFamily: "var(--font-montserrat)" }}
                       />
@@ -459,7 +465,7 @@ export default function ContactPage() {
                       className="text-[#CC0000] text-xs font-black uppercase tracking-widest"
                       style={{ fontFamily: "var(--font-montserrat)" }}
                     >
-                      ✕ Something went wrong. Please email us directly at erooney729@gmail.com.
+                      ✕ {errorMsg}
                     </p>
                   )}
 

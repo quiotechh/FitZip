@@ -6,6 +6,9 @@ import Link from "next/link";
 
 import { PRODUCT_CONTENT } from "@/lib/product-content";
 
+// 🚀 LAUNCH: set to false when Reset Your Plate is ready
+const NUTRITION_COMING_SOON = true;
+
 interface Product {
   _id: string;
   name: string;
@@ -73,10 +76,14 @@ export default function ProductsClient({ products }: { products: Product[] }) {
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
           {filtered.map((product) => {
             const ui = PRODUCT_CONTENT[product.slug] ?? PRODUCT_CONTENT["reset-your-body"];
+            const isComingSoon = NUTRITION_COMING_SOON && product.slug === "reset-your-plate";
+
             return (
               <Link
                 key={product._id}
-                href={`/products/${product.slug}`}
+                href={isComingSoon ? "https://fitzip-newsletter-069955.beehiiv.com/subscribe" : `/products/${product.slug}`}
+                target={isComingSoon ? "_blank" : undefined}
+                rel={isComingSoon ? "noopener noreferrer" : undefined}
                 className="group flex flex-col bg-white border-[3px] border-black rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1"
                 style={{ boxShadow: "8px 8px 0px #000000" }}
               >
@@ -88,44 +95,79 @@ export default function ProductsClient({ products }: { products: Product[] }) {
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
                     loading="eager"
-                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    className={`object-cover transition-transform duration-500 ${isComingSoon ? "scale-105 blur-[2px]" : "group-hover:scale-105"}`}
                   />
+                  {/* Tag */}
                   <span
-                    className={`absolute top-3 left-3 ${ui.tagColor} text-[10px] font-black uppercase tracking-widest px-2.5 py-1 border-2 border-black`}
+                    className={`absolute top-3 left-3 ${isComingSoon ? "bg-black text-white" : ui.tagColor} text-[10px] font-black uppercase tracking-widest px-2.5 py-1 border-2 border-black`}
                     style={{ fontFamily: "var(--font-montserrat)", boxShadow: "2px 2px 0px #000000" }}
                   >
-                    {ui.tag}
+                    {isComingSoon ? "Coming Soon" : ui.tag}
                   </span>
-                  <span
-                    className="absolute top-3 right-3 bg-[#CC0000] text-white text-[10px] font-black uppercase tracking-wide px-2.5 py-1 border-2 border-black"
-                    style={{ fontFamily: "var(--font-montserrat)", boxShadow: "2px 2px 0px #000000" }}
-                  >
-                    {Math.round((1 - product.price / ui.originalPrice) * 100)}% OFF
-                  </span>
+                  {/* Discount — hidden for coming soon */}
+                  {!isComingSoon && (
+                    <span
+                      className="absolute top-3 right-3 bg-[#CC0000] text-white text-[10px] font-black uppercase tracking-wide px-2.5 py-1 border-2 border-black"
+                      style={{ fontFamily: "var(--font-montserrat)", boxShadow: "2px 2px 0px #000000" }}
+                    >
+                      {Math.round((1 - product.price / ui.originalPrice) * 100)}% OFF
+                    </span>
+                  )}
+                  {/* Coming Soon overlay */}
+                  {isComingSoon && (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center px-6"
+                      style={{ background: "linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.72) 60%, rgba(0,0,0,0.93) 100%)" }}
+                    >
+                      <div className="text-center mt-auto mb-8">
+                        <p className="text-white text-[10px] font-black uppercase tracking-[0.3em] mb-2"
+                          style={{ fontFamily: "var(--font-montserrat)" }}>
+                          ✦ New Release ✦
+                        </p>
+                        <p className="text-white text-4xl md:text-5xl font-black uppercase leading-none"
+                          style={{ fontFamily: "var(--font-poppins)", letterSpacing: "-0.02em" }}>
+                          COMING
+                        </p>
+                        <p className="text-[#CC0000] text-4xl md:text-5xl font-black uppercase leading-none"
+                          style={{ fontFamily: "var(--font-poppins)", letterSpacing: "-0.02em" }}>
+                          SOON
+                        </p>
+                        <div className="w-12 h-0.75 bg-[#CC0000] mx-auto mt-3 mb-3" />
+                        <p className="text-white/60 text-[9px] font-black uppercase tracking-[0.25em]"
+                          style={{ fontFamily: "var(--font-montserrat)" }}>
+                          Tap to get notified
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 {/* Info */}
                 <div className="p-4 md:p-5 border-t-[3px] border-black flex flex-col gap-3">
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <p
-                        className="text-[10px] font-black uppercase tracking-widest text-[#CC0000] mb-0.5"
-                        style={{ fontFamily: "var(--font-montserrat)" }}
-                      >
+                      <p className="text-[10px] font-black uppercase tracking-widest text-[#CC0000] mb-0.5"
+                        style={{ fontFamily: "var(--font-montserrat)" }}>
                         {product.category} Program
                       </p>
-                      <h2
-                        className="text-lg md:text-xl font-black uppercase leading-tight text-black"
-                        style={{ fontFamily: "var(--font-poppins)" }}
-                      >
+                      <h2 className="text-lg md:text-xl font-black uppercase leading-tight text-black"
+                        style={{ fontFamily: "var(--font-poppins)" }}>
                         {product.name}
                       </h2>
                     </div>
                     <div className="flex flex-col items-end shrink-0">
-                      <Stars rating={ui.rating} />
-                      <span className="text-[10px] text-black/50 mt-0.5" style={{ fontFamily: "var(--font-montserrat)" }}>
-                        ({ui.reviewCount})
-                      </span>
+                      {isComingSoon ? (
+                        <p className="text-[10px] font-black uppercase tracking-widest text-[#CC0000] text-right"
+                          style={{ fontFamily: "var(--font-montserrat)" }}>
+                          ✦ Launching Soon
+                        </p>
+                      ) : (
+                        <>
+                          <Stars rating={ui.rating} />
+                          <span className="text-[10px] text-black/50 mt-0.5" style={{ fontFamily: "var(--font-montserrat)" }}>
+                            ({ui.reviewCount})
+                          </span>
+                        </>
+                      )}
                     </div>
                   </div>
 
@@ -135,11 +177,9 @@ export default function ProductsClient({ products }: { products: Product[] }) {
 
                   <div className="flex flex-wrap gap-1.5">
                     {ui.features.map((f) => (
-                      <span
-                        key={f}
+                      <span key={f}
                         className="text-[9px] font-black uppercase tracking-wider bg-black/5 border border-black/10 px-2 py-0.5 text-black/50"
-                        style={{ fontFamily: "var(--font-montserrat)" }}
-                      >
+                        style={{ fontFamily: "var(--font-montserrat)" }}>
                         {f}
                       </span>
                     ))}
@@ -147,18 +187,27 @@ export default function ProductsClient({ products }: { products: Product[] }) {
 
                   <div className="flex items-center justify-between pt-3 border-t-2 border-black/10">
                     <div className="flex items-baseline gap-2">
-                      <span className="text-2xl font-black text-black" style={{ fontFamily: "var(--font-poppins)" }}>
-                        ${product.price}
-                      </span>
-                      <span className="text-xs text-black/40 line-through" style={{ fontFamily: "var(--font-montserrat)" }}>
-                        ${ui.originalPrice}
-                      </span>
+                      {isComingSoon ? (
+                        <span className="text-xs font-black uppercase tracking-widest text-black/40"
+                          style={{ fontFamily: "var(--font-montserrat)" }}>
+                          Price TBA
+                        </span>
+                      ) : (
+                        <>
+                          <span className="text-2xl font-black text-black" style={{ fontFamily: "var(--font-poppins)" }}>
+                            ${product.price}
+                          </span>
+                          <span className="text-xs text-black/40 line-through" style={{ fontFamily: "var(--font-montserrat)" }}>
+                            ${ui.originalPrice}
+                          </span>
+                        </>
+                      )}
                     </div>
                     <span
                       className="bg-[#CC0000] text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 border-2 border-black transition-all duration-200 group-hover:bg-black"
                       style={{ fontFamily: "var(--font-montserrat)", boxShadow: "3px 3px 0px #000000" }}
                     >
-                      View Program →
+                      {isComingSoon ? "Notify Me →" : "View Program →"}
                     </span>
                   </div>
                 </div>
