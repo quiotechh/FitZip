@@ -30,7 +30,7 @@ const INFO_CARDS = [
       </svg>
     ),
     label: "YouTube",
-    value: "@fitzip · 228K Subscribers",
+    value: "@fitzip · 228K + Subscribers",
     href: "https://www.youtube.com/@fitzip",
   },
   {
@@ -64,6 +64,7 @@ const TICKER_WORDS = [
 ];
 
 type FormState = "idle" | "loading" | "success" | "error";
+
 
 function TopicDropdown({ value, onChange }: { value: string; onChange: (v: string) => void }) {
   const [open, setOpen] = useState(false);
@@ -132,6 +133,7 @@ function TopicDropdown({ value, onChange }: { value: string; onChange: (v: strin
 
 export default function ContactPage() {
   const [formState, setFormState] = useState<FormState>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -149,6 +151,7 @@ export default function ContactPage() {
     e.preventDefault();
     if (!form.topic) return;
     setFormState("loading");
+    setErrorMsg("");
 
     try {
       const res = await fetch("/api/contact", {
@@ -161,9 +164,12 @@ export default function ContactPage() {
         setFormState("success");
         setForm({ name: "", email: "", topic: "", message: "" });
       } else {
+        const data = await res.json().catch(() => ({}));
+        setErrorMsg(data.error ?? "Something went wrong. Please try again.");
         setFormState("error");
       }
     } catch {
+      setErrorMsg("Something went wrong. Please email us directly at erooney729@gmail.com.");
       setFormState("error");
     }
   };
@@ -304,17 +310,17 @@ export default function ContactPage() {
 
             {/* Newsletter nudge */}
             <div
-              className="p-5 border-[3px] border-black rounded-xl bg-black text-white"
+              className="p-5 border-[3px] border-black rounded-xl bg-white"
               style={{ boxShadow: "5px 5px 0px #CC0000" }}
             >
               <p
-                className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-1"
+                className="text-[10px] font-black uppercase tracking-widest text-black/40 mb-1"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 Free Weekly Tips
               </p>
               <p
-                className="text-sm font-black uppercase text-white mb-3 leading-tight"
+                className="text-sm font-black uppercase text-black mb-3 leading-tight"
                 style={{ fontFamily: "var(--font-poppins)" }}
               >
                 Join 228K+ people who train smarter.
@@ -323,7 +329,7 @@ export default function ContactPage() {
                 href="https://fitzip-newsletter-069955.beehiiv.com/subscribe"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block bg-[#CC0000] text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 border-2 border-white transition-colors duration-150 hover:bg-white hover:text-black"
+                className="inline-block bg-[#CC0000] text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 border-2 border-black transition-colors duration-150 hover:bg-black"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
                 Subscribe Free →
@@ -394,7 +400,7 @@ export default function ContactPage() {
                         value={form.name}
                         onChange={handleChange}
                         required
-                        placeholder="Eric Rooney"
+                        placeholder="John Smith"
                         className="w-full px-4 py-3 border-[3px] border-black rounded-none text-sm text-black placeholder:text-black/25 outline-none focus:border-[#CC0000] transition-colors duration-150 bg-white"
                         style={{ fontFamily: "var(--font-montserrat)" }}
                       />
@@ -459,7 +465,7 @@ export default function ContactPage() {
                       className="text-[#CC0000] text-xs font-black uppercase tracking-widest"
                       style={{ fontFamily: "var(--font-montserrat)" }}
                     >
-                      ✕ Something went wrong. Please email us directly at erooney729@gmail.com.
+                      ✕ {errorMsg}
                     </p>
                   )}
 

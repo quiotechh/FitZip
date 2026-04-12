@@ -4,7 +4,7 @@ const SECTIONS = [
   {
     title: "Acceptance of Terms",
     body: [
-      "By accessing or using the FitZip website (fitzip.com) and purchasing any of our products, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.",
+      "By accessing or using the FitZip website (fitzipp.com) and purchasing any of our products, you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website.",
     ],
   },
   {
@@ -17,7 +17,7 @@ const SECTIONS = [
   {
     title: "Intellectual Property",
     body: [
-      "All content on this website — including text, graphics, logos, images, and downloadable files — is the property of FitZip and Eric Rooney and is protected by applicable copyright and intellectual property laws.",
+      "All content on this website — including text, graphics, logos, images, and downloadable files — is the property of FitZip and is protected by applicable copyright and intellectual property laws.",
       "You may not reproduce, distribute, sell, sublicense, or republish any FitZip content in any form without prior written permission. This includes sharing PDF files with others, uploading them to file-sharing platforms, or using content for commercial purposes.",
     ],
   },
@@ -46,7 +46,7 @@ const SECTIONS = [
   {
     title: "Limitation of Liability",
     body: [
-      "To the fullest extent permitted by law, FitZip and Eric Rooney shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our products or website, including any injury resulting from following our programmes.",
+      "To the fullest extent permitted by law, FitZip shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of our products or website, including any injury resulting from following our programmes.",
     ],
   },
   {

@@ -111,7 +111,7 @@ export default function BlogPostLayout({ post }: BlogPostPageProps) {
                 className="inline-block bg-[#CC0000] text-white text-[10px] font-black uppercase tracking-widest px-3 py-1 mb-4"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
-                ✦ From Eric ✦
+                ✦ From FitZip ✦
               </span>
               <p
                 className="text-black/70 text-sm md:text-base leading-relaxed mb-6 border-l-4 border-[#CC0000] pl-4"
@@ -152,13 +152,13 @@ export default function BlogPostLayout({ post }: BlogPostPageProps) {
                 className="text-base font-black uppercase text-black"
                 style={{ fontFamily: "var(--font-poppins)" }}
               >
-                Eric Rooney
+                FitZip
               </p>
               <p
                 className="text-xs text-black/40 uppercase tracking-widest"
                 style={{ fontFamily: "var(--font-montserrat)" }}
               >
-                FitZip · Bodyweight Coach
+                Bodyweight Coach
               </p>
             </div>
             <Link

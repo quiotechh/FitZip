@@ -106,7 +106,7 @@ export default function BlogsPage() {
               className="text-white/50 text-sm md:text-base mt-6 max-w-lg mx-auto"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Free weekly fitness insights from Eric Rooney — no fluff, no
+              Free weekly fitness insights from FitZip — no fluff, no
               supplement plugs. Just the science that actually works.
             </p>
           </div>

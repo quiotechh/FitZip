@@ -1,8 +1,12 @@
 import { notFound } from "next/navigation";
 import ProductDetail, { ProductData } from "@/components/product-detail";
+import NutritionComingSoon from "@/components/nutrition-coming-soon";
 import dbConnect from "@/lib/db";
 import Product from "@/model/Product";
 import { PRODUCT_CONTENT } from "@/lib/product-content";
+
+// 🚀 LAUNCH: set this to false when Reset Your Plate ebook is ready
+const NUTRITION_COMING_SOON = true;
 
 interface PopulatedProduct {
   _id: unknown;
@@ -29,6 +33,11 @@ export default async function ProductPage({
 }) {
   const { slug } = await params;
 
+  // 🚀 LAUNCH: remove this block when Reset Your Plate is ready
+  if (slug === "reset-your-plate" && NUTRITION_COMING_SOON) {
+    return <NutritionComingSoon />;
+  }
+
   await dbConnect();
   const dbProduct = (await Product.findOne({ slug })
     .populate("upsellProducts")
@@ -42,6 +51,10 @@ export default async function ProductPage({
   if (!content) notFound();
 
   const upsell = dbProduct.upsellProducts;
+
+  // 🚀 LAUNCH: uncomment upsellOffer block below when Reset Your Plate is ready
+  const upsellOffer = undefined;
+  /*
   const upsellOffer =
     upsell && dbProduct.upsellDiscount != null
       ? {
@@ -56,6 +69,7 @@ export default async function ProductPage({
           image: upsell.image,
         }
       : undefined;
+  */
 
   const product: ProductData = {
     _id: String(dbProduct._id),
