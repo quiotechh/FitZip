@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from "next/server";
 import dbConnect from "@/lib/db";
 import stripe from "@/lib/stripe";
 import Order from "@/model/Order";
+import type { IProduct } from "@/model/Product";
+import { sendPurchaseConfirmationEmail } from "@/lib/email";
+import { generateDownloadUrl } from "@/lib/r2";
 import Stripe from "stripe";
 
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET;
@@ -37,17 +40,53 @@ export async function POST(request: NextRequest) {
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
 
-      // Update all orders with this session ID to completed
-      const result = await Order.updateMany(
-        { stripeSessionId: session.id },
-        {
-          paymentStatus: "completed",
-          // Set downloadUrl based on product (can be enhanced with actual file URLs)
-        },
+      // Find all orders with this session ID
+      const orders = await Order.find({ stripeSessionId: session.id }).populate(
+        "product",
       );
 
+      if (orders.length === 0) {
+        console.warn(`No orders found for session ${session.id}`);
+        return NextResponse.json({ received: true });
+      }
+
+      // Process each order
+      for (const order of orders) {
+        try {
+          const product = order.product as IProduct; // Populated product
+
+          if (!product || !product.fileName) {
+            console.error(
+              `Product or fileName not found for order ${order._id}`,
+            );
+            continue;
+          }
+
+          // Generate signed download URL from the stored file name
+          const downloadUrl = await generateDownloadUrl(product.fileName);
+
+          // Update order with the stored file name instead of a long-lived URL
+          await Order.findByIdAndUpdate(order._id, {
+            paymentStatus: "completed",
+            downloadFileName: product.fileName,
+          });
+
+          // Send confirmation email
+          await sendPurchaseConfirmationEmail(
+            order.email,
+            product.name,
+            downloadUrl,
+          );
+
+          console.log(`Processed order ${order._id} for session ${session.id}`);
+        } catch (error) {
+          console.error(`Failed to process order ${order._id}:`, error);
+          // Continue processing other orders even if one fails
+        }
+      }
+
       console.log(
-        `Updated ${result.modifiedCount} orders for session ${session.id}`,
+        `Completed processing ${orders.length} orders for session ${session.id}`,
       );
     }
 

@@ -7,7 +7,7 @@ export interface IOrder extends Document {
   amount: number;
   paymentStatus: "pending" | "completed" | "failed";
   stripeSessionId: string;
-  downloadUrl: string;
+  downloadFileName: string | null;
   isUpsell: boolean;
   upsellProduct: mongoose.Types.ObjectId | null;
   createdAt: Date;
@@ -46,7 +46,7 @@ const OrderSchema = new Schema<IOrder>(
       required: [true, "Stripe session ID is required"],
       unique: true,
     },
-    downloadUrl: {
+    downloadFileName: {
       type: String,
       default: null,
     },

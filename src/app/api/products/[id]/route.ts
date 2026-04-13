@@ -24,7 +24,7 @@ export async function GET(
     }
 
     const doc = product.toObject();
-    delete doc.fileUrl;
+    delete doc.fileName;
     return Response.json({ success: true, data: doc });
   } catch (error) {
     return Response.json(
