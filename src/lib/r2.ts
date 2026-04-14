@@ -26,7 +26,7 @@ const s3Client = new S3Client({
 
 export async function generateDownloadUrl(
   fileKey: string,
-  expiresIn: number = 24 * 60 * 60, // 24 hours
+  expiresIn: number = 24 * 60 * 60, // 24 hours - 1 day
 ): Promise<string> {
   try {
     const command = new GetObjectCommand({
