@@ -5,7 +5,7 @@ export interface IProduct extends Document {
   description: string;
   price: number;
   image: string;
-  fileUrl: string;
+  fileName: string;
   slug: string;
   category: "nutrition" | "workout";
   upsellProducts: mongoose.Types.ObjectId | null;
@@ -31,8 +31,16 @@ const ProductSchema = new Schema<IProduct>(
       min: [0, "Price cannot be negative"],
     },
     image: { type: String, required: [true, "Product image URL is required"] },
-    fileUrl: { type: String, required: [true, "Product file URL is required"] },
-    slug: { type: String, required: [true, "Slug is required"], unique: true, trim: true },
+    fileName: {
+      type: String,
+      required: [true, "Product file name is required"],
+    },
+    slug: {
+      type: String,
+      required: [true, "Slug is required"],
+      unique: true,
+      trim: true,
+    },
     category: { type: String, enum: ["nutrition", "workout"] },
     upsellProducts: {
       type: Schema.Types.ObjectId,

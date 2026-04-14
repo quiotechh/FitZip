@@ -19,8 +19,8 @@ export async function GET(request: NextRequest) {
       const product = await Product.findOne({ slug }).populate("upsellProducts");
       if (!product) return Response.json({ success: false, error: "Product not found" }, { status: 404 });
       const doc = product.toObject();
-      delete doc.fileUrl;
-      if (doc.upsellProducts) delete doc.upsellProducts.fileUrl;
+      delete doc.fileName;
+      if (doc.upsellProducts) delete doc.upsellProducts.fileName;
       if (doc.upsellProducts && doc.upsellDiscount != null) {
         doc.upsellPrice = parseFloat(
           (doc.upsellProducts.price * (1 - doc.upsellDiscount / 100)).toFixed(2)
@@ -36,8 +36,8 @@ export async function GET(request: NextRequest) {
 
     const data = products.map((p) => {
       const doc = p.toObject();
-      delete doc.fileUrl;
-      if (doc.upsellProducts) delete doc.upsellProducts.fileUrl;
+      delete doc.fileName;
+      if (doc.upsellProducts) delete doc.upsellProducts.fileName;
       if (doc.upsellProducts && doc.upsellDiscount != null) {
         doc.upsellPrice = parseFloat(
           (doc.upsellProducts.price * (1 - doc.upsellDiscount / 100)).toFixed(2)
