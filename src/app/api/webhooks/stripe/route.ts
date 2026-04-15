@@ -71,11 +71,12 @@ export async function POST(request: NextRequest) {
             downloadFileName: product.fileName,
           });
 
-          // Send confirmation email
+          // Send confirmation email + admin notification
           await sendPurchaseConfirmationEmail(
             order.email,
             product.name,
             downloadUrl,
+            order.amount,
           );
 
           console.log(`Processed order ${order._id} for session ${session.id}`);

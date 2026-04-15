@@ -107,7 +107,7 @@ export default function BlogsPage() {
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
               Free weekly fitness insights from FitZip — no fluff, no
-              supplement plugs. Just the science that actually works.
+              filler. Just the science that actually works.
             </p>
           </div>
         </div>
@@ -201,7 +201,7 @@ export default function BlogsPage() {
                   style={{ aspectRatio: "16/10" }}
                 >
                   <p
-                    className="text-white/[0.12] font-black uppercase select-none leading-none"
+                    className="text-white font-black uppercase select-none leading-none"
                     style={{
                       fontFamily: "var(--font-poppins), sans-serif",
                       fontSize: "clamp(36px, 9vw, 80px)",

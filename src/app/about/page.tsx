@@ -79,7 +79,7 @@ export default function AboutPage() {
               className="text-white/60 text-sm md:text-base mt-6 max-w-lg mx-auto"
               style={{ fontFamily: "var(--font-montserrat)" }}
             >
-              Full-time fitness brand. Bodyweight movement coaching. The brand that made 228,000 people realise they never needed a gym.
+              Full-time fitness brand. Bodyweight movement coaching. The brand that made 228,000 people realize they never needed a gym.
             </p>
           </div>
         </div>
